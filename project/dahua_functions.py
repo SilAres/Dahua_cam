@@ -58,3 +58,32 @@ def dahua_add_user(srv, headers, user_name, user_pass, group="user"):
         print(f'Пользователь {user_name} создан')
     else:
         print(f'Пользователь {user_name} не создан')
+
+
+def dahua_get_network(srv, headers):
+    s = requests.session()
+    url_hosts = f"http://{srv}/cgi-bin/configManager.cgi?action=getConfig&name=Network"
+    page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
+    # print(url_hosts)
+    if page.status_code == 200:
+        print("успешно")
+    else:
+        print("Ошибка")
+    m = {}
+    for i in page.text.split("\r\n"):
+        k = i.split("=")
+        if k != ['']:
+            m[k[0]] = k[1]
+    f = open("./cofig/"+m["table.Network.eth2.IPAddress"] + ".txt", 'w')
+    f.write(str(m))
+    f.close()
+
+def dahua_snapshot(srv, headers):
+    s = requests.session()
+    url_hosts = f"http://{srv}/cgi-bin/snapshot.cgi"
+    print(url_hosts)
+    page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
+    if page.status_code == 200:
+        print(f'Снапшот создан')
+    else:
+        print(f'Снапшот не создан')
