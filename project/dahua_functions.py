@@ -15,15 +15,11 @@ def dahua_name(cam, headers, name):
 
 def dahua_network(cam, headers, seting):
     print(f'\033[34m Смена сетевых настроек камеры {cam}')
-    # print(seting)
     s = requests.session()
     url_hosts = f"http://{cam}/cgi-bin/configManager.cgi?action=setConfig"
     for key, value in seting.items():
         url_hosts += f'&{key}={value}'
-    # print(url_hosts)
     page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
-    # print(page.status_code)
-
     if page.status_code == 200:
         print("\033[32m Успешно изменены сетевые настройки")
     else:
@@ -86,7 +82,6 @@ def dahua_get_network(cam, headers):
     s = requests.session()
     url_hosts = f"http://{cam}/cgi-bin/configManager.cgi?action=getConfig&name=Network"
     page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
-    # print(url_hosts)
     if page.status_code == 200:
         print("\033[32m успешно")
     else:
@@ -105,7 +100,6 @@ def dahua_snapshot(cam, headers):
     print(f'\033[34m Сохранени снапшота сети камеры {cam} в файл')
     s = requests.session()
     url_hosts = f"http://{cam}/cgi-bin/snapshot.cgi"
-    # print(url_hosts)
     page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
     with open(f'./scrin/{cam}.jpg', 'wb') as handler:
         handler.write(page.content)
