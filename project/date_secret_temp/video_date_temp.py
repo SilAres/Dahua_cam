@@ -13,21 +13,26 @@ video_date= {"Encode[0].MainFormat[0].Video.resolution":"1280x960",
 "Encode[0].ExtraFormat[0].Video.GOP":"50"
                   }
 
+audio_enable_date= {"Encode[0].ExtraFormat[0].AudioEnable" : "true",
+"Encode[0].MainFormat[0].AudioEnable" : "true",
+"Encode[0].MainFormat[1].AudioEnable" : "true",
+"Encode[0].MainFormat[2].AudioEnable" : "true",
+"Encode[0].MainFormat[3].AudioEnable" : "true"
+                  }
+
+
 
 network_cam = {
-"network.eth0.DefaultGateway": "10.89.178.126",
-"network.eth0.DhcpEnable" : "false",
-"network.eth0.DnsServers[0]" : "8.8.8.8",
-"network.eth0.DnsServers[1]" : "8.8.4.4",
-"network.eth0.EnableDhcpReservedIP" : "false",
-"network.eth0.IPAddress" : "192.168.1.108",
-"network.eth0.SubnetMask" : "255.255.255.192",
-"Network.Hostname" : "SZ"
+"Network.eth0.DefaultGateway": "10.1.1.2",
+"Network.eth0.IPAddress" : "10.1.1.1",
+"Network.eth0.SubnetMask" : "255.255.255.0",
+"Network.Hostname" : "Name"
 }
 
 
+
 ntp_cam = {
-    "NTP.Address":"192.168.1.1",
+    "NTP.Address":"10.1.1.1",
     "NTP.Enable":"true",
     "NTP.Port":"123",
     "NTP.TimeZone":"3",
