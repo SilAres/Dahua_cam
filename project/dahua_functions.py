@@ -107,3 +107,15 @@ def dahua_snapshot(cam, headers):
         print(f'\033[32m Снапшот создан')
     else:
         print(f'\033[31m Снапшот не создан')
+
+
+def dahua_motiondetect_enable(cam, headers):
+    print(f'\033[34m Включение датчика движения камеры {cam}')
+    s = requests.session()
+    url_hosts = f"http://{cam}/cgi-bin/configManager.cgi?action=setConfig&MotionDetect[0].Enable=true"
+    page = s.get(url=url_hosts, auth=HTTPDigestAuth(headers['login_username'], headers['login_password']))
+    if page.status_code == 200:
+        print("\033[32m Успешно изменены настройки датчика движения")
+    else:
+        print("\033[31m Ошибка изменения настроек датчика движения")
+
